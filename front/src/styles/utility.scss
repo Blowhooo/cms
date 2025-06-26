@@ -37,8 +37,6 @@ $font-sizes: (14, 18, 20, 24, 28, 32, 36, 48, 60, 72);
   .u-gapy-#{$space} {row-gap : #{ $space / 16 }rem;}
 }
 
-@each $name, $size in $font-sizes {
-  .u-text-#{$name} {
-    font-size: $size;
-  }
+@each $size in $font-sizes {
+  .u-text-#{$size} {font-size: #{ $size / 16}rem;}
 }
