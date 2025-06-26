@@ -13,9 +13,12 @@ engine = create_engine(DB_URL, echo=True)
 app = FastAPI()
 
 # CORS 설정
+from fastapi.middleware.cors import CORSMiddleware
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=["*"],  # 개발 중에는 모든 origin 허용
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
