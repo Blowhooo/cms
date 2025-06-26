@@ -1,0 +1,24 @@
+@use '@/styles/variables/fantasy' as colors;
+
+#layout {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100dvh;
+    padding: 2em;
+    background: colors.$fantasy-gradient;
+    text-align: center;
+}
+#app {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    
+    border: 2px solid rgba(colors.$fantasy-tan, 0.3);
+    border-radius: 1.25em;
+    
+    box-shadow: 
+        0 8px 32px rgba(colors.$fantasy-brown-dark, 0.15),
+        0 4px 16px rgba(colors.$fantasy-brown, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    
+}
