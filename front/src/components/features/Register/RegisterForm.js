@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import Input from '@/components/ui/Input';
 import Button from '@/components/ui/Button';
-import '@/components/common/styles/login.scss';
 
 const formSet = [
   { 
@@ -10,7 +9,8 @@ const formSet = [
     name: "username",
     type: "text",
     placeholder: "아이디를 입력하세요",
-    labelText: "아이디"
+    labelText: "아이디",
+    alert: "아이디는 8자 이상 16자 이하로 입력해주세요."
   },
   {    
     tag: "label",
@@ -18,7 +18,11 @@ const formSet = [
     name: "nickname",
     type: "text",
     placeholder: "닉네임을 입력하세요",
-    labelText: "닉네임"
+    labelText: "닉네임",
+    alert: [
+      "2자 이상 10자 이하, 한글·영문·숫자만 사용 가능합니다.",
+      "한글, 영문, 숫자만 사용 가능하며 특수문자나 한자는 사용할 수 없습니다."
+    ]
   },
   {    
     tag: "label",
@@ -41,7 +45,7 @@ const formSet = [
 const btnSet = [
   {
     as: Link,
-    href: "/success",
+    href: "/register/success",
     key: "register",
     text: "회원가입",
     variant: "primary"
@@ -55,7 +59,7 @@ const btnSet = [
   }
 ];
 
-const Form = () => {
+const RegisterForm = () => {
   return (
     <form 
       className="login-form"
@@ -73,7 +77,7 @@ const Form = () => {
           
           return (
             <WrapperTag 
-              key={idx} 
+              key={item.id} 
               className="login-form__field"
               {...(item.tag === 'label' && { htmlFor: item.id })}
             >
@@ -85,6 +89,15 @@ const Form = () => {
                 placeholder={item.placeholder}
                 required
               />
+              {item.alert && (
+                <div className="login-form__alert" role="alert">
+                  {Array.isArray(item.alert) ? (
+                    item.alert.map(msg => <p key={msg} className="login-form__msg">{msg}</p>)
+                  ) : (
+                    <p className="login-form__msg">{item.alert}</p>
+                  )}
+                </div>
+              )}
             </WrapperTag>
           );
         })}
@@ -105,4 +118,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export default RegisterForm;

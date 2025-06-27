@@ -39,13 +39,22 @@
     gap:1rem;
     padding:1.5rem 0;
   }
+
+  &__alert {
+    margin-top: 0.5rem;
+  }
     
     
   &__msg {
-    margin-top: 0.5rem;
+    display: flex; 
+    gap:0.5em;
     font-size: 0.85rem;
     color: #e74c3c;
-    min-height: 1.2rem;
+    text-align:left;
+    line-height: 1.6;
+    &:before {
+      content:"-"
+    }
   }
   
   &__page {

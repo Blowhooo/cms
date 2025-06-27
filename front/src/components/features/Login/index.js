@@ -1,5 +1,5 @@
-import Form from './Form'
-import '@/components/common/styles/login.scss';
+import LoginForm from './LoginForm'
+
 
 const Login = () => {
   return (
@@ -13,7 +13,7 @@ const Login = () => {
             새로운 모험이 당신을 기다립니다
           </p>
         </div>
-        <Form />
+        <LoginForm />
       </div>
     </section>
   )

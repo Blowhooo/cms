@@ -1,4 +1,4 @@
-import Login from "@/components/common/Login";
+import Login from "@/components/features/Login";
 
 export const metadata = {
   title: "완자와 주누의 Next 탐험 - 로그인",
@@ -9,9 +9,9 @@ export const metadata = {
 const page = () => {
   return (
     <>
-      <main id="app" className="app" role="main" aria-label="로그인 페이지">
+      
         <Login/>
-      </main>
+      
     </>
   );
 }
