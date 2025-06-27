@@ -5,6 +5,8 @@ import Link from 'next/link';
 import Input from '@/components/ui/Input';
 import Button from '@/components/ui/Button';
 
+
+
 const RegisterForm = () => {
   // 아이디 관련
   const [username, setUsername] = useState('');
@@ -52,6 +54,26 @@ const RegisterForm = () => {
     const value = e.target.value.trim();
     setUserPwConfirmChk(value.length === 0 ? '' : value === userPw ? 'correct' : 'wrong');
   };
+
+  // 회원가입 버튼
+  const [formChk, setFormChk] = useState('');
+
+  const handleSubmit = (e) => {
+    handleUsernameBlur({ target: { value: username } });
+    handleUsernickBlur({ target: { value: usernick } });
+    handleUserPwBlur({ target: { value: userPw } });
+    handleUserPwConfirmBlur({ target: { value: userPwConfirm } });
+
+     if (
+      usernameChk !== 'correct' ||
+      usernickChk !== 'correct' ||
+      userPwChk !== 'correct' ||
+      userPwConfirmChk !== 'correct'
+    ) {
+      alert('입력하신 정보를 다시 확인해주세요.');
+      return;
+    }
+  }
 
   const formSet = [
     {
@@ -110,14 +132,13 @@ const RegisterForm = () => {
       variant: userPwConfirmChk,
       onChange: handleUserPwConfirmChange,
       onBlur: handleUserPwConfirmBlur,
-      alert: true // 이 줄 추가!
+      alert: true
     }
   ];
 
   const btnSet = [
     {
-      as: Link,
-      href: '/register/success',
+      type: 'submit',
       key: 'register',
       text: '회원가입',
       variant: 'primary'
@@ -132,7 +153,15 @@ const RegisterForm = () => {
   ];
 
   return (
-    <form className="login-form" noValidate aria-describedby="register-desc">
+    <form 
+      className="login-form" 
+      noValidate 
+      aria-describedby="register-desc"
+       onSubmit={(e) => {
+        e.preventDefault();
+        handleSubmit();
+      }}
+    >
       <fieldset className="login-form__fieldset">
         <legend className="blind">회원가입 정보 입력</legend>
         <p id="register-desc" className="blind">회원가입을 위한 정보를 입력해주세요.</p>
@@ -205,6 +234,7 @@ const RegisterForm = () => {
       <div className="login-form__ctrl">
         {btnSet.map((btn) => (
           <Button
+            type={btn.type}
             key={btn.key}
             as={btn.as}
             href={btn.href}

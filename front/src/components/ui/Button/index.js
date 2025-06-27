@@ -1,7 +1,7 @@
 import styles from './Button.module.scss';
 
 const Button = ({
-   children,
+  children,
   as = 'button', // 렌더링할 요소 타입 또는 컴포넌트
   type = 'button',
   variant, // primary, secondary, danger, success, warning, ghost, outline
