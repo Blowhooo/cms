@@ -54,7 +54,8 @@
     line-height: 1.6;
     &:before {
       content:"-"
-    }
+    };
+    transition: var(--trans);
   }
   
   &__page {
@@ -88,3 +89,5 @@
     gap:1em;
   }
 }
+
+.login-form__msg--correct {color: #008000;}
