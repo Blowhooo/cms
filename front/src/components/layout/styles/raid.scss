@@ -1,0 +1,42 @@
+.party {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: var(--res-width);
+  height: var(--res-height);
+  max-width:100%;
+  max-height:100%;
+  gap:1.5rem;
+  padding:1.5rem;
+}
+
+.party-list{
+  flex:1;
+
+  &__tbl {
+    border-top:2px solid var(--dark);
+    width: 100%;
+
+  }
+
+  &__col--num {
+    width: 7.5rem;
+  }
+
+  &__col--cnt {
+    width: 7.5rem;
+  }
+
+  &__col--join {
+    width: 5rem;
+  }
+
+  &__tr {
+    border-bottom:1px solid var(--strk)
+  }
+
+  &__cell {
+    padding: 0.5rem;
+    text-align: center;
+  }
+}

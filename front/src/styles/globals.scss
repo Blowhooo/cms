@@ -1,7 +1,13 @@
 :root {
   --background: #ffffff;
   --foreground: #000;
+
+  --dark: #000;
+
   --res-width : calc(100vw - 4rem);
+  --res-height: calc(100dvh - 3rem);
+
+  --strk : #cdcdcd;
 
   --trans : .3s ease-in-out all;
 }
@@ -72,6 +78,21 @@ fieldset {
   padding: 0;
   margin: 0;
   min-inline-size: auto;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+}
+
+th,
+td {
+  border: none;
+  background: none;
+  font-weight: normal;
+  text-align: left;
+  vertical-align: middle;
 }
 
 .blind {

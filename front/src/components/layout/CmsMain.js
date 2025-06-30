@@ -19,6 +19,7 @@ const CmsMain = ({ children }) => {
           <li className="cms-nav__item"><Link href="/" className="cms-nav__link">채널2</Link></li>
           <li className="cms-nav__item"><Link href="/" className="cms-nav__link">채널3</Link></li>
           <li className="cms-nav__item"><Link href="/" className="cms-nav__link">채널4</Link></li>
+          <li className="cms-nav__item"><Link href="/party" className="cms-nav__link">레이드</Link></li>
         </ul>
       </nav>
 
