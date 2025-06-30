@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Input from '@/components/ui/Input';
 import Button from '@/components/ui/Button';
-import '@/components/common/styles/login.scss';
+
 
 const formSet = [
   {
@@ -22,7 +22,7 @@ const formSet = [
   },
 ]
 
-const Form = () => {
+const LoginForm = () => {
   return (
     <form
       className="login-form"
@@ -86,4 +86,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export default LoginForm;

@@ -1,13 +1,27 @@
 @use '@/styles/variables/fantasy' as colors;
 
 #layout {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100dvh;
-    padding: 2em;
+    padding: 1.5rem 2rem;
     background: colors.$fantasy-gradient;
     text-align: center;
+
+    &:has(.cms-wrapper) {
+        &:before{
+            position: absolute; 
+            top: 0; 
+            right: 0; 
+            bottom: 0; 
+            left: 0;
+            content:'';
+            display: block;
+            background-color: rgba(0,0,0,0.4);
+        }
+    }
 }
 #app {
     background: rgba(255, 255, 255, 0.95);
@@ -21,4 +35,5 @@
         0 4px 16px rgba(colors.$fantasy-brown, 0.1),
         inset 0 1px 0 rgba(255, 255, 255, 0.8);
     
+    overflow: hidden;
 }

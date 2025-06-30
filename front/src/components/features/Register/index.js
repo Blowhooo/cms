@@ -1,9 +1,9 @@
-import Form from './Form'
-import '@/components/common/styles/login.scss';
+import RegisterForm from './RegisterForm'
+
 
 const Register = () => {
   return (
-    <section className="page-login" aria-labelledby="rgst-title">
+    <main className="page-login" aria-labelledby="rgst-title">
       <div className="u-py-32 u-px-24 page-login__container">
         <div className="page-login__int">
           <h1 id="rgst-title" className="u-text-24 page-login__title">
@@ -13,9 +13,9 @@ const Register = () => {
             새로운 모험이 당신을 기다립니다!
           </p>
         </div>
-        <Form/>
+        <RegisterForm/>
       </div>
-    </section>
+    </main>
   )
 } 
 

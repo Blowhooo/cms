@@ -14,14 +14,24 @@
     font-size: 1rem;
     transition: var(--trans);
     
+    &--correct {
+        border-color: transparent;
+        box-shadow: 0 0 0 3px rgba(0, 128, 0, 0.3);
+    }
+
+    &--wrong  {
+        border-color: transparent;
+        box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.3);
+    }
+
     &::placeholder {
     color: rgba(colors.$fantasy-brown, 0.7);
     }
     
     &:focus {
-    outline: none;
-    border-color: colors.$fantasy-brown;
-    background: rgba(colors.$fantasy-light, 0.8);
-    box-shadow: 0 0 0 3px rgba(colors.$fantasy-brown, 0.1);
+        outline: none;
+        border-color: colors.$fantasy-brown;
+        background: rgba(colors.$fantasy-light, 0.8);
+        box-shadow: 0 0 0 3px rgba(colors.$fantasy-brown, 0.1);
     }
 }

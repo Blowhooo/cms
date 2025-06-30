@@ -2,12 +2,14 @@ import { Noto_Sans_KR } from 'next/font/google';
 import "@/styles/globals.scss";
 import "@/styles/utility.scss";
 import "@/styles/layout.scss";
+import AppMain from '@/components/layout/AppMain';
 
 const noto = Noto_Sans_KR({
   subsets: ['latin'],
   weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
   display: 'swap',
 });
+
 
 export const metadata = {
   title: "완자와 주누의 Next 탐험",
@@ -22,9 +24,9 @@ export default function RootLayout({ children }) {
       <body>
         {/* <a href="#wrapper" className="skip-link" aria-label="메인 콘텐츠로 바로가기">메인 콘텐츠로 바로가기</a> */}
         <div id="layout">
-          
+          <AppMain>
             {children}
-          
+          </AppMain>
         </div>
       </body>
     </html>
