@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 const routeLabels = {
+  '/home': '메인 페이지',
   '/register': '회원가입 페이지',
   '/': '로그인 페이지',
 };
@@ -24,9 +25,9 @@ const AppMain = ({ children }) => {
   }, [pathname]);
 
   return (
-    <main id="app" className="app" role="main" aria-label={ariaLabel}>
+    <div id="app" className="app" role="main" aria-label={ariaLabel}>
       {children}
-    </main>
+    </div>
   );
 };
 

@@ -1,248 +1,162 @@
 "use client";
 
-import { useState } from 'react'
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Input from '@/components/ui/Input';
 import Button from '@/components/ui/Button';
 
-
-
 const RegisterForm = () => {
-  // 아이디 관련
-  const [username, setUsername] = useState('');
-  const [usernameChk, setUsernameChk] = useState('');
-  const handleUsernameChange = (e) => {
-    setUsername(e.target.value);
-  };
-  const handleUsernameBlur = (e) => {
-    const value = e.target.value.trim();
-    const isValid = /^[a-zA-Z0-9]+$/.test(value) && value.length >= 8 && value.length <= 16;
-    setUsernameChk(value.length === 0 ? '' : isValid ? 'correct' : 'wrong');
+  const router = useRouter();
+
+  const [form, setForm] = useState({
+    username: '',
+    nickname: '',
+    password: '',
+    passwordChk: ''
+  });
+
+  const [errors, setErrors] = useState({
+    username: '',
+    nickname: '',
+    password: '',
+    passwordChk: ''
+  });
+
+  const [touched, setTouched] = useState({
+    username: false,
+    nickname: false,
+    password: false,
+    passwordChk: false
+  });
+
+  const validateField = (name, value, allValues = form) => {
+    switch (name) {
+      case 'username':
+        return /^[a-zA-Z0-9]{8,16}$/.test(value)
+          ? ''
+          : '아이디는 영문 8자 이상 16자 이하로 입력해주세요.';
+      case 'nickname':
+        return /^[가-힣a-zA-Z0-9]{2,10}$/.test(value)
+          ? ''
+          : '닉네임은 2~10자, 한글/영문/숫자만 사용 가능합니다.';
+      case 'password':
+        return /^.{8,16}$/.test(value)
+          ? ''
+          : '비밀번호는 8자 이상 16자 이하로 입력해주세요.';
+      case 'passwordChk':
+        return value === allValues.password
+          ? ''
+          : '비밀번호가 일치하지 않습니다.';
+      default:
+        return '';
+    }
   };
 
-  // 닉네임 관련
-  const [usernick, setUsernick] = useState('');
-  const [usernickChk, setUsernickChk] = useState('');
-  const handleUsernickChange = (e) => {
-    setUsernick(e.target.value);
-  };
-  const handleUsernickBlur = (e) => {
-    const value = e.target.value.trim();
-    const isValid = /^[가-힣a-zA-Z0-9]+$/.test(value) && value.length >= 2 && value.length <= 10;
-    setUsernickChk(value.length === 0 ? '' : isValid ? 'correct' : 'wrong');
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  // 비밀번호 관련
-  const [userPw, setUserPw] = useState('');
-  const [userPwChk, setUserPwChk] = useState('');
-  const handleUserPwChange = (e) => {
-    setUserPw(e.target.value);
-  };
-  const handleUserPwBlur = (e) => {
-    const value = e.target.value.trim();
-    const isValid = value.length >= 8 && value.length <= 16;
-    setUserPwChk(value.length === 0 ? '' : isValid ? 'correct' : 'wrong');
+  const handleBlur = (e) => {
+    const { name, value } = e.target;
+
+    setTouched((prev) => ({ ...prev, [name]: true }));
+
+    setErrors((prev) => ({
+      ...prev,
+      [name]: validateField(name, value)
+    }));
   };
 
-  // 비밀번호 확인
-  const [userPwConfirm, setUserPwConfirm] = useState('');
-  const [userPwConfirmChk, setUserPwConfirmChk] = useState('');
-  const handleUserPwConfirmChange = (e) => {
-    setUserPwConfirm(e.target.value);
-  };
-  const handleUserPwConfirmBlur = (e) => {
-    const value = e.target.value.trim();
-    setUserPwConfirmChk(value.length === 0 ? '' : value === userPw ? 'correct' : 'wrong');
-  };
+  const validateAll = () => {
+    const newErrors = {
+      username: validateField('username', form.username),
+      nickname: validateField('nickname', form.nickname),
+      password: validateField('password', form.password),
+      passwordChk: validateField('passwordChk', form.passwordChk, form)
+    };
 
-  // 회원가입 버튼
-  const [formChk, setFormChk] = useState('');
+    setErrors(newErrors);
+    setTouched({
+      username: true,
+      nickname: true,
+      password: true,
+      passwordChk: true
+    });
+
+    return Object.values(newErrors).every((msg) => msg === '');
+  };
 
   const handleSubmit = (e) => {
-    handleUsernameBlur({ target: { value: username } });
-    handleUsernickBlur({ target: { value: usernick } });
-    handleUserPwBlur({ target: { value: userPw } });
-    handleUserPwConfirmBlur({ target: { value: userPwConfirm } });
-
-     if (
-      usernameChk !== 'correct' ||
-      usernickChk !== 'correct' ||
-      userPwChk !== 'correct' ||
-      userPwConfirmChk !== 'correct'
-    ) {
-      alert('입력하신 정보를 다시 확인해주세요.');
-      return;
+    e.preventDefault();
+    if (validateAll()) {
+      router.push('/register/success');
     }
-  }
-
-  const formSet = [
-    {
-      tag: 'label',
-      id: 'username',
-      name: 'username',
-      type: 'text',
-      placeholder: '아이디를 입력하세요',
-      labelText: '아이디',
-      alert: '아이디는 8자 이상 16자 이하로 입력해주세요.',
-      value: username,
-      variant: usernameChk,
-      onChange: handleUsernameChange,
-      onBlur: handleUsernameBlur
-    },
-    {
-      tag: 'label',
-      id: 'nickname',
-      name: 'nickname',
-      type: 'text',
-      placeholder: '닉네임을 입력하세요',
-      labelText: '닉네임',
-      alert: [
-        '2자 이상 10자 이하, 한글·영문·숫자만 사용 가능합니다.',
-        '한글, 영문, 숫자만 사용 가능하며 특수문자나 한자는 사용할 수 없습니다.'
-      ],
-      value: usernick,
-      variant: usernickChk,
-      onChange: handleUsernickChange,
-      onBlur: handleUsernickBlur
-    },
-    {
-      tag: 'label',
-      id: 'password',
-      name: 'password',
-      type: 'password',
-      placeholder: '비밀번호를 입력하세요',
-      labelText: '비밀번호',
-      alert: [
-        '8자 이상 16자 이하의 영문, 숫자를 포함해야 합니다.',
-        '특수문자 사용을 권장하며, 공백은 사용할 수 없습니다.'
-      ],
-      value: userPw,
-      variant: userPwChk,
-      onChange: handleUserPwChange,
-      onBlur: handleUserPwBlur
-    },
-    {
-      tag: 'label',
-      id: 'password-chk',
-      name: 'password-chk',
-      type: 'password',
-      placeholder: '비밀번호를 다시 한번 입력하세요.',
-      labelText: '비밀번호 확인',
-      value: userPwConfirm,
-      variant: userPwConfirmChk,
-      onChange: handleUserPwConfirmChange,
-      onBlur: handleUserPwConfirmBlur,
-      alert: true
-    }
-  ];
-
-  const btnSet = [
-    {
-      type: 'submit',
-      key: 'register',
-      text: '회원가입',
-      variant: 'primary'
-    },
-    {
-      as: Link,
-      href: '/',
-      key: 'back',
-      text: '뒤로가기',
-      variant: 'secondary'
-    }
-  ];
+  };
 
   return (
-    <form 
-      className="login-form" 
-      noValidate 
-      aria-describedby="register-desc"
-       onSubmit={(e) => {
-        e.preventDefault();
-        handleSubmit();
-      }}
-    >
+    <form className="login-form" noValidate onSubmit={handleSubmit}>
       <fieldset className="login-form__fieldset">
         <legend className="blind">회원가입 정보 입력</legend>
-        <p id="register-desc" className="blind">회원가입을 위한 정보를 입력해주세요.</p>
 
-        {formSet.map((item) => {
-          const WrapperTag = item.tag;
+        {['username', 'nickname', 'password', 'passwordChk'].map((field) => {
+          const labels = {
+            username: '아이디',
+            nickname: '닉네임',
+            password: '비밀번호',
+            passwordChk: '비밀번호 확인'
+          };
+
+          const placeholders = {
+            username: '아이디를 입력하세요',
+            nickname: '닉네임을 입력하세요',
+            password: '비밀번호를 입력하세요',
+            passwordChk: '비밀번호를 다시 입력하세요'
+          };
+
+          const types = {
+            username: 'text',
+            nickname: 'text',
+            password: 'password',
+            passwordChk: 'password'
+          };
 
           return (
-            <WrapperTag
-              key={item.id}
-              className="login-form__field"
-              {...(item.tag === 'label' && { htmlFor: item.id })}
-            >
-              <span className="blind">{item.labelText}</span>
+            <label key={field} htmlFor={field} className="login-form__field">
+              <span className="blind">{labels[field]}</span>
               <Input
-                id={item.id}
-                name={item.name}
-                type={item.type}
-                placeholder={item.placeholder}
-                required
+                id={field}
+                name={field}
+                type={types[field]}
+                placeholder={placeholders[field]}
+                value={form[field]}
+                onChange={handleChange}
+                onBlur={handleBlur}
                 maxLength={20}
-                {...(item.variant !== undefined && { variant: item.variant })}
-                {...(item.value !== undefined && { value: item.value })}
-                {...(item.onChange !== undefined && { onChange: item.onChange })}
-                {...(item.onBlur !== undefined && { onBlur: item.onBlur })}
+                variant={
+                  errors[field]
+                    ? 'wrong'
+                    : touched[field] && form[field]
+                    ? 'correct'
+                    : ''
+                }
               />
-              {item.alert && (
-                <div className="login-form__alert" role="alert">
-                  {item.id === 'password-chk' ? (
-                    userPwConfirmChk === 'wrong' ? (
-                      <p className="login-form__msg">비밀번호가 일치하지 않습니다.</p>
-                    ) : userPwConfirmChk === 'correct' ? (
-                      <p className="login-form__msg login-form__msg--correct">비밀번호가 일치합니다.</p>
-                    ) : null
-                  ) : Array.isArray(item.alert) ? (
-                    item.alert.map((msg, i) => (
-                      <p
-                        key={msg}
-                        className={`login-form__msg ${
-                          (item.id === 'username' && usernameChk === 'correct') ||
-                          (item.id === 'nickname' && usernickChk === 'correct') ||
-                          (item.id === 'password' && userPwChk === 'correct')
-                            ? 'login-form__msg--correct'
-                            : ''
-                        }`}
-                      >
-                        {msg}
-                      </p>
-                    ))
-                  ) : (
-                    <p
-                      className={`login-form__msg ${
-                        (item.id === 'username' && usernameChk === 'correct') ||
-                        (item.id === 'nickname' && usernickChk === 'correct') ||
-                        (item.id === 'password' && userPwChk === 'correct')
-                          ? 'login-form__msg--correct'
-                          : ''
-                      }`}
-                    >
-                      {item.alert}
-                    </p>
-                  )}
-                </div>
+              {errors[field] && (
+                <p className="login-form__msg">{errors[field]}</p>
               )}
-            </WrapperTag>
+            </label>
           );
         })}
       </fieldset>
 
       <div className="login-form__ctrl">
-        {btnSet.map((btn) => (
-          <Button
-            type={btn.type}
-            key={btn.key}
-            as={btn.as}
-            href={btn.href}
-            variant={btn.variant}
-          >
-            {btn.text}
-          </Button>
-        ))}
+        <Button type="submit" variant="primary">
+          회원가입
+        </Button>
+        <Button as={Link} href="/" variant="secondary">
+          뒤로가기
+        </Button>
       </div>
     </form>
   );

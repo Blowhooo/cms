@@ -24,7 +24,9 @@ export default function RootLayout({ children }) {
       <body>
         {/* <a href="#wrapper" className="skip-link" aria-label="메인 콘텐츠로 바로가기">메인 콘텐츠로 바로가기</a> */}
         <div id="layout">
-          <AppMain>{children}</AppMain>
+          <AppMain>
+            {children}
+          </AppMain>
         </div>
       </body>
     </html>

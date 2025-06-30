@@ -39,14 +39,10 @@
     gap:1rem;
     padding:1.5rem 0;
   }
-
-  &__alert {
-    margin-top: 0.5rem;
-  }
-    
-    
+     
   &__msg {
     display: flex; 
+    margin-top: 0.5em;
     gap:0.5em;
     font-size: 0.85rem;
     color: #e74c3c;

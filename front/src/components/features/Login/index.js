@@ -3,7 +3,7 @@ import LoginForm from './LoginForm'
 
 const Login = () => {
   return (
-    <section className="page-login" aria-labelledby="page-login-title">
+    <main className="page-login" aria-labelledby="page-login-title">
       <div className="u-py-32 u-px-24 page-login__container">
         <div className="page-login__int">
           <h1 id="page-login-title" className="u-text-24 page-login__title">
@@ -15,7 +15,7 @@ const Login = () => {
         </div>
         <LoginForm />
       </div>
-    </section>
+    </main>
   )
 }
 
