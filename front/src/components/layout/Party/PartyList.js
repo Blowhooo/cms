@@ -1,4 +1,7 @@
-import Link from "next/link"
+'use client';
+
+import Link from "next/link";
+import axios from "axios";
 
 const PartyRoom = () => {
   const partyItems = [
@@ -53,11 +56,9 @@ const PartyRoom = () => {
                   party.count > 0 ? (
                     <>
                       <td className="party-list__cell">{party.id}</td>
-                      <td className="party-list__cell">
-                        <Link href={`/party/${party.id}`} className="party-list__link">{party.name}</Link>
-                      </td>
+                      <td className="party-list__cell">{party.name}</td>
                       <td className="party-list__cell">{party.count} / 4</td>
-                      <td className="party-list__cell">참여하기</td>
+                      <td className="party-list__cell"><Link href={`/party/${party.id}`} className="party-list__link">참여하기</Link></td>
                     </>
                   ) : (
                     <td className="party-list__cell party-list__cell--empty" colSpan={3}>방이 존재하지 않습니다.</td>
