@@ -12,6 +12,7 @@ export default function TextInput({
   placeholder,
   variantType = 'default',
   disabled = false,
+  className
 }) {
   return (
     <input
@@ -20,7 +21,7 @@ export default function TextInput({
       onChange={onChange}
       placeholder={placeholder}
       disabled={disabled}
-      className={`px-3 py-2 rounded-md outline-none transition duration-200 ${variant[disabled ? 'disabled' : variantType]}`}
+      className={`px-3 py-2 rounded-md outline-none transition duration-200 ${className} ${variant[disabled ? 'disabled' : variantType]}`}
     />
   );
 }

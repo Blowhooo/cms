@@ -1,6 +1,6 @@
 const variant = {
   default:
-    'border flex-1 border-green-500 text-green-500 hover:bg-green-600 hover:text-white focus:ring focus:ring-green-200',
+    'border border-green-500 text-green-500 cursor-pointer hover:bg-green-600 hover:text-white focus:ring focus:ring-green-200',
   error:
     'bg-red-500 text-white hover:bg-red-600 focus:ring focus:ring-red-200',
   success:
@@ -15,6 +15,7 @@ export default function Button({
   text = '버튼',
   variantType = 'default',
   disabled = false,
+  className
 }) {
   return (
     <button
@@ -22,6 +23,7 @@ export default function Button({
       onClick={onClick}
       disabled={disabled}
       className={`
+        ${className}
         px-4 py-2 rounded-md outline-none transition duration-200
         ${variant[disabled ? 'disabled' : variantType]}
       `}

@@ -54,8 +54,8 @@ export default function RegisterForm() {
       <fieldset className="mt-4 flex flex-col gap-3">
         {
           rgstForm.map((item, idx) => (
-            <label key={item.key} className="block">
-              <TextInput type={item.type} placeholder={item.placeholder}/>
+            <label key={item.key} className="flex">
+              <TextInput type={item.type} placeholder={item.placeholder} className="flex-1"/>
             </label>
           ))
         }
@@ -63,7 +63,7 @@ export default function RegisterForm() {
         <div className="flex gap-2">
           {
             btnForm.map((item, idx) => (
-              <Button key={item.text} text={item.text} />
+              <Button key={item.text} text={item.text} className="flex-1"/>
             ))
           }
         </div>
