@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
+from login import get_current_user  # 👈 추가!
 from typing import List
 
 import models
@@ -15,11 +16,11 @@ router = APIRouter(
 def create_character(
     character: schemas.CharacterCreate,
     db: Session = Depends(get_db),
-    current_user: str = "test_user"  # 나중에 인증 추가
+    current_user = Depends(get_current_user)
 ):
     """캐릭터 생성"""
     db_character = models.Character(
-        user_id=current_user,
+        user_id=current_user.id,
         **character.dict()
     )
     db.add(db_character)

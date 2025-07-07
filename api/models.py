@@ -2,20 +2,30 @@ from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey, Enum
 from sqlalchemy.sql import func
 from sqlalchemy.orm import relationship
 from database import Base
+from passlib.context import CryptContext
 import enum
 
-# 기존 테이블들
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
 class AdmMember(Base):
     __tablename__ = "adm_member"
     
     id = Column(String(50), primary_key=True)
-    password = Column(String(255), nullable=True)
+    password = Column(String(255), nullable=True)  # 해싱된 비밀번호 저장
     nick = Column(String(50), nullable=True)
     
     # Relationships
     characters = relationship("Character", back_populates="owner")
     led_parties = relationship("PartyRecruitment", back_populates="leader")
     chat_messages = relationship("PartyChatMessage", back_populates="user")
+    
+    def set_password(self, password: str):
+        """비밀번호 설정 (해싱)"""
+        self.password = pwd_context.hash(password)
+    
+    def check_password(self, password: str) -> bool:
+        """비밀번호 확인"""
+        return pwd_context.verify(password, self.password)
 
 class SimplePost(Base):
     __tablename__ = "simple_posts"
